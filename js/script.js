@@ -86,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dot = document.createElement('span');
                 dot.className = 'dot' + (i === 0 ? ' active' : '');
                 dot.addEventListener('click', () => {
-                    cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    // Scroll solo dentro del grid, sin mover la página
+                    grid.scrollTo({ left: grid.offsetWidth * i, behavior: 'smooth' });
                 });
                 dotsContainer.appendChild(dot);
             });
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MOBILE: Auto-rotate galería ---
     function initGalleryAutoRotate() {
         if (window.innerWidth > 768) return;
-        
+
         const galleryCarousel = document.querySelector('.gallery-carousel');
         if (!galleryCarousel) return;
 
@@ -114,7 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setInterval(() => {
             current = (current + 1) % items.length;
-            items[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            // Scroll solo dentro del carrusel, sin mover la página
+            galleryCarousel.scrollTo({
+                left: galleryCarousel.offsetWidth * current,
+                behavior: 'smooth'
+            });
         }, 3000);
     }
 
