@@ -6,10 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
-        // Change icon? Maybe later. For now just toggle.
     });
 
-    // Close mobile menu when a link is clicked
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
@@ -35,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
             } else {
-                // Remove class to re-trigger animation when scrolling back
                 entry.target.classList.remove('revealed');
             }
         });
@@ -46,12 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(element => {
         element.style.opacity = '0';
-        element.style.transform = 'translateY(50px)'; // Increased distance
-        element.style.transition = 'all 0.8s ease-out'; // Slower, smoother ease
+        element.style.transform = 'translateY(50px)';
+        element.style.transition = 'all 0.8s ease-out';
         revealObserver.observe(element);
     });
 
-    // Add CSS class for revealed elements dynamically
     const style = document.createElement('style');
     style.innerHTML = `
         .revealed {
@@ -61,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(style);
 
-    // Carousel Logic
+    // Carousel Logic (desktop)
     const carousel = document.querySelector('.gallery-carousel');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     const nextBtn = document.querySelector('.carousel-btn.next');
@@ -70,11 +66,60 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.addEventListener('click', () => {
             carousel.scrollBy({ left: 300, behavior: 'smooth' });
         });
-
         prevBtn.addEventListener('click', () => {
             carousel.scrollBy({ left: -300, behavior: 'smooth' });
         });
     }
 
-    console.log('Eléctricas Vásquez scripts loaded');
+    // --- MOBILE: Dots para servicios ---
+    function initServicesDots() {
+        if (window.innerWidth > 768) return;
+
+        const grid = document.querySelector('.services-grid');
+        const cards = document.querySelectorAll('.service-card');
+        if (!grid || !cards.length) return;
+
+        if (!document.querySelector('.services-dots')) {
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'services-dots';
+            cards.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                });
+                dotsContainer.appendChild(dot);
+            });
+            grid.parentElement.appendChild(dotsContainer);
+        }
+
+        const dots = document.querySelectorAll('.services-dots .dot');
+        grid.addEventListener('scroll', () => {
+            const index = Math.round(grid.scrollLeft / grid.offsetWidth);
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        });
+    }
+
+    // --- MOBILE: Auto-rotate galería ---
+    function initGalleryAutoRotate() {
+        if (window.innerWidth > 768) return;
+        
+        const galleryCarousel = document.querySelector('.gallery-carousel');
+        if (!galleryCarousel) return;
+
+        const items = document.querySelectorAll('.gallery-item');
+        if (!items.length) return;
+
+        let current = 0;
+
+        setInterval(() => {
+            current = (current + 1) % items.length;
+            items[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        }, 3000);
+    }
+
+    initServicesDots();
+    initGalleryAutoRotate();
+
+    console.log('Electricidad Vásquez scripts loaded');
 });

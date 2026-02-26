@@ -104,7 +104,6 @@ header {
     width: 100%;
     height: var(--header-height);
     background-color: var(--primary-color);
-    /* Initial state solid for now, or transparent if preferred */
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
@@ -280,7 +279,6 @@ header {
 .section {
     padding: 80px 0;
     scroll-margin-top: 80px;
-    /* Offset for sticky header */
 }
 
 .section-title {
@@ -355,7 +353,6 @@ header {
     color: var(--white);
     text-align: center;
     background-image: linear-gradient(rgba(11, 29, 58, 0.9), rgba(11, 29, 58, 0.9));
-    /* Overlay if we add bg image later */
     position: relative;
     overflow: hidden;
 }
@@ -447,7 +444,6 @@ header {
     margin: 0 auto 20px;
     border: 4px solid var(--white);
     box-shadow: 0 0 0 4px var(--bg-light);
-    /* Faux gap */
 }
 
 .step h3 {
@@ -465,14 +461,11 @@ header {
     height: 2px;
     background-color: #d1d1d1;
     margin-top: 30px;
-    /* Align with center of circles approximately */
     position: relative;
     z-index: 1;
     display: none;
-    /* easier to manage via pseudo-elements but let's stick to flex logic or absolute */
 }
 
-/* Better connector approach via pseudo-element on container or steps */
 .steps-container::before {
     content: '';
     position: absolute;
@@ -490,7 +483,6 @@ header {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 50px;
-    /* Space for buttons */
 }
 
 .gallery-carousel {
@@ -499,21 +491,16 @@ header {
     scroll-behavior: smooth;
     gap: 20px;
     padding-bottom: 20px;
-    /* Hide scrollbar if needed or add spacing */
     scrollbar-width: none;
-    /* Firefox */
     -ms-overflow-style: none;
-    /* IE 10+ */
 }
 
 .gallery-carousel::-webkit-scrollbar {
     display: none;
-    /* Chrome/Safari */
 }
 
 .gallery-item {
     flex: 0 0 250px;
-    /* Static width for carousel items */
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -718,7 +705,6 @@ header {
 
     .section {
         padding: 50px 0;
-        /* Reduced padding */
         scroll-margin-top: 70px;
     }
 
@@ -742,7 +728,6 @@ header {
 
     .nav-links a {
         font-size: 1.2rem;
-        /* Larger links for touch */
         display: block;
         text-align: center;
     }
@@ -753,7 +738,6 @@ header {
 
     .hero-title {
         font-size: 2.5rem;
-        /* Smaller hero title */
     }
 
     .hero-subtitle {
@@ -770,32 +754,68 @@ header {
 
     .trust-grid {
         grid-template-columns: repeat(2, 1fr);
-        /* 2x2 on tablet */
     }
 
+    /* Servicios en carrusel mobile */
     .services-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 0 20px 20px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        grid-template-columns: unset;
     }
 
-    /* Gallery Carousel Responsive */
+    .services-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .service-card {
+        flex: 0 0 80vw;
+        max-width: 320px;
+        scroll-snap-align: center;
+    }
+
+    /* Dots navegación servicios */
+    .services-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .services-dots .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .services-dots .dot.active {
+        background-color: var(--primary-color);
+    }
+
+    /* Galería sin flechas, full width */
     .gallery-carousel-wrapper {
         padding: 0;
-        /* Remove side padding on mobile */
     }
 
     .carousel-btn {
-        width: 35px;
-        height: 35px;
-        background-color: rgba(11, 29, 58, 0.8);
-        /* Semi-transparent */
+        display: none;
     }
 
-    .carousel-btn.prev {
-        left: 10px;
+    .gallery-carousel {
+        scroll-snap-type: x mandatory;
     }
 
-    .carousel-btn.next {
-        right: 10px;
+    .gallery-item {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        height: 240px;
     }
 
     .emergency-highlight h2 {
@@ -806,7 +826,6 @@ header {
         flex-direction: column;
         width: 100%;
         max-width: 300px;
-        /* Consistent max-width */
         margin: 0 auto;
     }
 
@@ -845,7 +864,6 @@ header {
 
     .trust-grid {
         grid-template-columns: 1fr;
-        /* Stack trust items on very small screens */
     }
 
     .trust-item {
@@ -856,7 +874,6 @@ header {
 
     .gallery-item {
         flex: 0 0 80%;
-        /* Show one mostly full item */
     }
 
     .floating-wa {
