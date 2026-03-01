@@ -108,19 +108,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const galleryCarousel = document.querySelector('.gallery-carousel');
         if (!galleryCarousel) return;
 
-        const items = document.querySelectorAll('.gallery-item');
-        if (!items.length) return;
+        let autoRotateInterval;
 
-        let current = 0;
+        function startAutoRotate() {
+            autoRotateInterval = setInterval(() => {
+                const maxScroll = galleryCarousel.scrollWidth - galleryCarousel.offsetWidth;
 
-        setInterval(() => {
-            current = (current + 1) % items.length;
-            // Scroll solo dentro del carrusel, sin mover la página
-            galleryCarousel.scrollTo({
-                left: galleryCarousel.offsetWidth * current,
-                behavior: 'smooth'
-            });
-        }, 3000);
+                if (galleryCarousel.scrollLeft >= maxScroll - 5) {
+                    // Si estamos al final, volvemos al principio suavemente
+                    galleryCarousel.scrollTo({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Avanzamos un item (estimando por offsetWidth)
+                    galleryCarousel.scrollBy({
+                        left: galleryCarousel.offsetWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 3000);
+        }
+
+        function stopAutoRotate() {
+            clearInterval(autoRotateInterval);
+        }
+
+        startAutoRotate();
+
+        // Pausar si el usuario interactúa
+        galleryCarousel.addEventListener('touchstart', stopAutoRotate);
+        galleryCarousel.addEventListener('touchend', startAutoRotate);
     }
 
     initServicesDots();

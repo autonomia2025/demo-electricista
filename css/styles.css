@@ -507,12 +507,13 @@ header {
     height: 180px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #000;
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.5s ease;
 }
 
@@ -634,9 +635,9 @@ header {
 }
 
 .footer-bottom {
-20px 0;
+    20px 0;
     text-align: center;
-    font-size:     padding: 0.9rem;
+    font-size: padding: 0.9rem;
 }
 
 /* Floating WhatsApp */
@@ -816,6 +817,11 @@ header {
         flex: 0 0 100%;
         scroll-snap-align: center;
         height: 240px;
+        background-color: #000;
+    }
+
+    .gallery-item img {
+        object-fit: contain;
     }
 
     .emergency-highlight h2 {
