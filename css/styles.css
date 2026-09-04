@@ -209,6 +209,26 @@ header {
     padding-top: var(--header-height);
 }
 
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    color: var(--accent-color);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-badge i {
+    font-size: 1.15rem;
+}
+
 .hero-title {
     font-size: 3.5rem;
     margin-bottom: 20px;
@@ -345,6 +365,27 @@ header {
 .service-card p {
     font-size: 0.95rem;
     color: #666;
+}
+
+.service-card.featured-service {
+    border: 1.5px solid rgba(255, 215, 0, 0.45);
+    background: linear-gradient(180deg, rgba(255, 215, 0, 0.06) 0%, var(--bg-light) 100%);
+    position: relative;
+}
+
+.service-card .service-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--primary-color);
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
 }
 
 /* Emergency Highlight Section */
